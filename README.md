@@ -1,4 +1,5 @@
-## Current Dependency Versions
+## Devops Support Package
 
-* Gradle:  https://services.gradle.org/versions/current
-* Kotlin:  https://github.com/JetBrains/kotlin/releases/latest
+This Python package contains features that are intended to be useful for devops
+automation purposes.
+
