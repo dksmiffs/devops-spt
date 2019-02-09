@@ -4,17 +4,17 @@ from abc import ABC, abstractmethod
 class ExternalVersion(ABC):
     """Define interface for managing external dependency versions"""
 
-    @staticmethod
+    @classmethod
     @abstractmethod
-    def existing():
+    def existing(cls):
         """Return installed version"""
 
-    @staticmethod
+    @classmethod
     @abstractmethod
-    def latest():
+    def latest(cls):
         """Return latest version available"""
 
-    @staticmethod
+    @classmethod
     @abstractmethod
-    def update(verbose=False):
+    def update(cls, verbose=False):
         """Update installed version to latest if necessary"""
