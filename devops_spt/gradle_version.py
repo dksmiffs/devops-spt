@@ -1,7 +1,7 @@
 """Automate management of Gradle versions"""
-from re import match
+from re import MULTILINE, search
 from json import loads
-from subprocess import check_output, run
+from subprocess import PIPE, run
 from urllib.request import urlopen
 from external_version import ExternalVersion
 
@@ -11,13 +11,10 @@ class GradleVersion(ExternalVersion):
     @staticmethod
     def existing():
         """Return installed Gradle version"""
-        # shell=True okay in this case, b/c not building the command from user
-        #    input
-        output = check_output('gradlew -v | grep "^Gradle" ' + \
-                              '| sed "s/^Gradle //"', shell=True, text=True)
-        # eliminate the trailing newline from output, only match the version
-        pattern = match(r'(.+)', output)
-        return pattern.group(1)
+        output = run('bash gradlew -v', shell=True, \
+                     text=True, stdout=PIPE).stdout
+        version = search('^Gradle (.+)$', output, MULTILINE)
+        return version.group(1)
 
     @staticmethod
     def latest():
@@ -26,7 +23,7 @@ class GradleVersion(ExternalVersion):
         #    with legacy urllib.urlopen, NOT urllib.request.urlopen.  Also, no
         #    concerns with this usage raised from a reading of the following:
         #       https://docs.python.org/3/library/urllib.request.html
-        with urlopen("https://services.gradle.org/versions/current")\
+        with urlopen('https://services.gradle.org/versions/current')\
                 as url:
             full_json = loads(url.read().decode())
             # json parsing guidance: https://stackoverflow.com/a/7771071
@@ -38,14 +35,14 @@ class GradleVersion(ExternalVersion):
         old = GradleVersion.existing()
         new = GradleVersion.latest()
         if verbose:
-            print("existing Gradle ==> " + old)
-            print("latest Gradle   ==> " + new)
+            print('existing Gradle ==> ' + old)
+            print('latest Gradle   ==> ' + new)
         if old == new:
             if verbose:
-                print("Gradle update not necessary")
+                print('Gradle update not necessary')
         else:
             # Gradle update guidance:
             #    blog.nishtahir.com/2018/04/15/
             #       how-to-properly-update-the-gradle-wrapper
-            run(["gradlew", "wrapper", "--gradle-version", new, \
-                 "--distribution-type", "bin"])
+            run('bash gradlew wrapper --gradle-version ' + new + \
+                ' --distribution-type bin', shell=True)
