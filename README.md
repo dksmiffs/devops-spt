@@ -1,5 +1,3 @@
-## Devops Support Package
+[![image](https://img.shields.io/codacy/grade/bfac5bbcdddd4e88b4e33381996bb2dc.svg)](https://app.codacy.com/project/dksmiffs/devops-spt/dashboard)
 
-This Python package contains features that are intended to be useful for devops
-automation purposes.
-
+A Python package intended to be useful for devops automation purposes.
