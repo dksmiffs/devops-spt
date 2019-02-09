@@ -1,6 +1,8 @@
-*.swp
-.eggs
 build
 devops_spt.egg-info
 dist
+.eggs
+*.pyc
+*.swp
+venv_*
 
