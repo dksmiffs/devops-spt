@@ -1,7 +1,7 @@
 """Automate management of Gradle versions"""
 from re import match
 from json import loads
-from subprocess import call, check_output
+from subprocess import check_output, run
 from urllib.request import urlopen
 from external_version import ExternalVersion
 
@@ -22,6 +22,10 @@ class GradleVersion(ExternalVersion):
     @staticmethod
     def latest():
         """Return latest Gradle version available"""
+        # Codacy raises B310 on the following line, but appears to have issue
+        #    with legacy urllib.urlopen, NOT urllib.request.urlopen.  Also, no
+        #    concerns with this usage raised from a reading of the following:
+        #       https://docs.python.org/3/library/urllib.request.html
         with urlopen("https://services.gradle.org/versions/current")\
                 as url:
             full_json = loads(url.read().decode())
@@ -43,5 +47,5 @@ class GradleVersion(ExternalVersion):
             # Gradle update guidance:
             #    blog.nishtahir.com/2018/04/15/
             #       how-to-properly-update-the-gradle-wrapper
-            call("gradlew wrapper --gradle-version " + new + \
-                 " --distribution-type bin", shell=True)
+            run(["gradlew", "wrapper", "--gradle-version", new, \
+                 "--distribution-type", "bin"])
