@@ -9,20 +9,16 @@ from external_version import ExternalVersion
 class GradleVersion(ExternalVersion):
     """Concrete class for managing Gradle dependency versions"""
 
-    # class properties
-    _platform = system()
-    _gradle_cmd = 'gradlew.bat' if _platform == 'Windows' else 'gradlew'
-
-    @classmethod
-    def existing(cls):
+    @staticmethod
+    def existing():
         """Return installed Gradle version"""
-        output = run(args=[cls._gradle_cmd, '-v'], shell=False, \
-                     text=True, stdout=PIPE).stdout
+        output = run(['gradlew.bat' if system() == 'Windows' else 'gradlew', \
+                      '-v'], shell=False, text=True, stdout=PIPE).stdout
         version = search('^Gradle (.+)$', output, MULTILINE)
         return version.group(1)
 
-    @classmethod
-    def latest(cls):
+    @staticmethod
+    def latest():
         """Return latest Gradle version available"""
         # Codacy raises B310 on the following line, but appears to have issue
         #    with legacy urllib.urlopen, NOT urllib.request.urlopen.  Also, no
@@ -34,8 +30,8 @@ class GradleVersion(ExternalVersion):
             # json parsing guidance: https://stackoverflow.com/a/7771071
             return full_json['version']
 
-    @classmethod
-    def update(cls, verbose=False):
+    @staticmethod
+    def update(verbose=False):
         """Update installed Gradle version to latest if necessary"""
         old = GradleVersion.existing()
         new = GradleVersion.latest()
@@ -49,5 +45,7 @@ class GradleVersion(ExternalVersion):
             # Gradle update guidance:
             #    blog.nishtahir.com/2018/04/15/
             #       how-to-properly-update-the-gradle-wrapper
-            run(args=[cls._gradle_cmd, 'wrapper', '--gradle-version', new, \
-                      '--distribution-type', 'bin'], shell=False)
+            run(args=['gradlew.bat' if system() == 'Windows' else 'gradlew', \
+                      'wrapper', '--gradle-version', new, \
+                      '--distribution-type', 'bin'], \
+                shell=False)
