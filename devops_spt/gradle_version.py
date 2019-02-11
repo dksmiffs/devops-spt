@@ -2,8 +2,8 @@
 from re import MULTILINE, search
 from json import loads
 from platform import system
+from requests import get
 from subprocess import PIPE, run
-from urllib.request import urlopen
 from external_version import ExternalVersion
 
 class GradleVersion(ExternalVersion):
@@ -20,15 +20,10 @@ class GradleVersion(ExternalVersion):
     @staticmethod
     def latest():
         """Return latest Gradle version available"""
-        # Codacy raises B310 on the following line, but appears to have issue
-        #    with legacy urllib.urlopen, NOT urllib.request.urlopen.  Also, no
-        #    concerns with this usage raised from a reading of the following:
-        #       https://docs.python.org/3/library/urllib.request.html
-        with urlopen('https://services.gradle.org/versions/current')\
-                as url:
-            full_json = loads(url.read().decode())
-            # json parsing guidance: https://stackoverflow.com/a/7771071
-            return full_json['version']
+        req = get('https://services.gradle.org/versions/current')
+        full_json = loads(req.content.decode())
+        # json parsing guidance: https://stackoverflow.com/a/7771071
+        return full_json['version']
 
     @staticmethod
     def update(verbose=False):
