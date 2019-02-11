@@ -1,8 +1,8 @@
 """Automate management of Kotlin versions"""
 from os.path import basename
-from subprocess import call, check_output
+from subprocess import run
 from urllib.parse import urlparse
-from re import match
+from re import MULTILINE, search
 from requests import get
 from external_version import ExternalVersion
 
@@ -12,16 +12,11 @@ class KotlinVersion(ExternalVersion):
     @staticmethod
     def existing():
         """Return installed Kotlin version"""
-        # shell=True okay in this case, b/c not building the command from user
-        #    input
-        output = check_output('cat build.gradle.kts' + \
-                              ' | grep "^  kotlin(\'jvm\')"' + \
-                              ' | sed "s/^  kotlin(\'jvm\') version //"', \
-                              shell=True, text=True)
-        # eliminate quotes & trailing newline from output, only match the
-        #    version
-        pattern = match(r'"(.+)"', output)
-        return pattern.group(1)
+        with open('build.gradle.kts') as inf:
+            filedata = inf.read()
+            version = search('^ *kotlin."jvm". version "(.+)"$', \
+                             filedata, MULTILINE)
+            return version.group(1)
 
     @staticmethod
     def latest():
@@ -41,17 +36,17 @@ class KotlinVersion(ExternalVersion):
         old = KotlinVersion.existing()
         new = KotlinVersion.latest()
         if verbose:
-            print("existing Kotlin ==> " + old)
-            print("latest Kotlin   ==> " + new)
+            print('existing Kotlin ==> ' + old)
+            print('latest Kotlin   ==> ' + new)
         if old == new:
             if verbose:
                 print("Kotlin update not necessary")
         else:
             # Guidance: https://stackoverflow.com/a/17141572
-            with open('build.gradle.kts', 'r') as infile:
-                filedata = infile.read()
+            with open('build.gradle.kts', 'r') as inf:
+                filedata = inf.read()
             filedata = filedata.replace(old, new)
             # write the same filename out again
-            with open('build.gradle.kts', 'w') as outfile:
-                outfile.write(filedata)
-            call("dos2unix build.gradle.kts", shell=True)
+            with open('build.gradle.kts', 'w') as outf:
+                outf.write(filedata)
+            run(args=['dos2unix', 'build.gradle.kts'], shell=False)
