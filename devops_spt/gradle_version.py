@@ -2,8 +2,8 @@
 from re import MULTILINE, search
 from json import loads
 from platform import system
-from requests import get
 from subprocess import PIPE, run
+from requests import get
 from external_version import ExternalVersion
 
 class GradleVersion(ExternalVersion):
