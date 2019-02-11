@@ -1,6 +1,5 @@
 """Automate management of Kotlin versions"""
 from os.path import basename
-from subprocess import run
 from urllib.parse import urlparse
 from re import MULTILINE, search
 from requests import get
@@ -47,6 +46,5 @@ class KotlinVersion(ExternalVersion):
                 filedata = inf.read()
             filedata = filedata.replace(old, new)
             # write the same filename out again
-            with open('build.gradle.kts', 'w') as outf:
+            with open('build.gradle.kts', 'w', newline='\n') as outf:
                 outf.write(filedata)
-            run(args=['dos2unix', 'build.gradle.kts'], shell=False)
