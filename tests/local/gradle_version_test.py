@@ -1,6 +1,6 @@
 """pytest unit tests for the gradle_version module"""
 from subprocess import CompletedProcess
-from devops_spt import GradleVersion
+#from devops_spt import GradleVersion
 
 def test_GradleVersion_existing(mocker):
     """unit test GradleVersion.existing"""
