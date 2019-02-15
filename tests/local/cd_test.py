@@ -1,6 +1,6 @@
 """pytest unit tests for the cd module"""
 import os
-from . import cd
+from devops_spt import cd
 
 def test_chdir(mocker):
     """unit test cd.chdir"""

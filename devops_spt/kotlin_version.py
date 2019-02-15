@@ -3,7 +3,7 @@ from os.path import basename
 from urllib.parse import urlparse
 from re import MULTILINE, search
 from requests import get
-from external_version import ExternalVersion
+from .external_version import ExternalVersion
 
 class KotlinVersion(ExternalVersion):
     """Concrete class for managing Kotlin dependency versions"""
