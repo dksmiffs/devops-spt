@@ -1,0 +1,12 @@
+dist: xenial
+language: python
+python: 3.7
+
+install:
+  - python -m pip install -r requirements_travis_ci.txt
+
+script:
+  - python -m pytest --cov=devops_spt tests/local
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
