@@ -1,5 +1,0 @@
-# Codacy flags assert usage by default, but assert is recommended by pytest
-# Guidance:
-#   https://github.com/fossasia/query-server/issues/332#issuecomment-357734986
-[bandit]
-skips: B101

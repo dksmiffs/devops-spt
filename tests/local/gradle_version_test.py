@@ -8,4 +8,4 @@ def test_GradleVersion_existing(mocker):
     runmock.return_value.stdout = 'Gradle 0.9.8'
     version = GradleVersion.existing()
     runmock.assert_called_once()
-    assert version == '0.9.8'
+    assert version == '0.9.8'  # nosec
