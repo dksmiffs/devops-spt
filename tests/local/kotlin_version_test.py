@@ -28,12 +28,14 @@ def test_KotlinVersion_update_not_needed(mocker):
     KotlinVersion.update(verbose=True)
     gvmock.existing.assert_called_once()
 
-#def test_KotlinVersion_update_needed(mocker):
-#    """unit test KotlinVersion.update, update necessary"""
-#    gvmock = mocker.patch('devops_spt.kotlin_version.KotlinVersion')
-#    gvmock.existing.return_value = '6'
-#    gvmock.latest.return_value = '14'
-#    runmock = mocker.patch('devops_spt.kotlin_version.run')
-#    KotlinVersion.update(verbose=False)
-#    gvmock.existing.assert_called_once()
-#    runmock.assert_called_once()
+def test_KotlinVersion_update_needed(mocker):
+    """unit test KotlinVersion.update, update necessary"""
+    gvmock = mocker.patch('devops_spt.kotlin_version.KotlinVersion')
+    gvmock.existing.return_value = '6'
+    gvmock.latest.return_value = '14'
+    openmock = mocker.patch('builtins.open', \
+                  mocker.mock_open(read_data='kotlin("jvm") version "6"'))
+    KotlinVersion.update(verbose=False)
+    gvmock.existing.assert_called_once()
+    gvmock.latest.assert_called_once()
+    assert openmock.call_count == 2
