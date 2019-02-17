@@ -3,7 +3,7 @@ from re import MULTILINE, search
 from json import loads
 from platform import system
 # Codacy raises B404 low severity on next line. Suggestions welcome.
-import subprocess
+from subprocess import run, PIPE
 from requests import get
 from .external_version import ExternalVersion
 
@@ -14,10 +14,9 @@ class GradleVersion(ExternalVersion):
     def existing():
         """Return installed Gradle version"""
         # Codacy raises B603 low severity on next line. Suggestions welcome.
-        done_proc = subprocess.run( \
+        done_proc = run( \
                      ['gradlew.bat' if system() == 'Windows' else 'gradlew', \
-                      '-v'], shell=False, text=True, \
-                     stdout=subprocess.PIPE)
+                      '-v'], shell=False, text=True, stdout=PIPE)
         output = done_proc.stdout
         version = search('^Gradle (.+)$', output, MULTILINE)
         return version.group(1)
