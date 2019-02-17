@@ -18,3 +18,21 @@ def test_GradleVersion_latest(mocker):
     getmock.assert_called_once()
     loadsmock.assert_called_once()
     assert version == '18'  # nosec
+
+def test_GradleVersion_update_not_needed(mocker):
+    """unit test GradleVersion.update, no update necessary"""
+    gvmock = mocker.patch('devops_spt.gradle_version.GradleVersion')
+    gvmock.existing.return_value = '6'
+    gvmock.latest.return_value = '6'
+    GradleVersion.update(verbose=True)
+    gvmock.existing.assert_called_once()
+
+def test_GradleVersion_update_needed(mocker):
+    """unit test GradleVersion.update, update necessary"""
+    gvmock = mocker.patch('devops_spt.gradle_version.GradleVersion')
+    gvmock.existing.return_value = '6'
+    gvmock.latest.return_value = '14'
+    runmock = mocker.patch('devops_spt.gradle_version.run')
+    GradleVersion.update(verbose=False)
+    gvmock.existing.assert_called_once()
+    runmock.assert_called_once()
