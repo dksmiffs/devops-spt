@@ -38,4 +38,4 @@ def test_KotlinVersion_update_needed(mocker):
     KotlinVersion.update(verbose=False)
     gvmock.existing.assert_called_once()
     gvmock.latest.assert_called_once()
-    assert openmock.call_count == 2
+    assert openmock.call_count == 2  # nosec
