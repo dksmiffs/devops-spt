@@ -8,15 +8,15 @@ A Python package that automates useful devops tasks.
 
 ## Testing _devopts-spt_
 
-_devops-spt_ contains two types of tests, both contained under the top level `tests` directory:
+_devops-spt_ can be tested from two different perspectives:
 
 1.  **Unit tests**:  Development time, pre-publish tests. Run as follows from the top level directory in a clean venv:
 ```bash
 python -m pip install -r requirements_travis_ci.txt
-python -m pytest tests/local
+python -m pytest tests
 ```
 
-2.  **Package tests**:  Post-publish tests, importing _devops-spt_ itself back from TestPyPI. Run as follows from the `tests/TestPyPI` directory in a clean venv:
+2.  **Package tests**:  Post-publish tests, importing _devops-spt_ itself back from TestPyPI. Run as follows from inside the `tests` directory in a clean venv:
 ```bash
 python -m pip install -r requirements_TestPyPI.txt
 python -m pytest
