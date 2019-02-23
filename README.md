@@ -10,8 +10,9 @@ A Python package that automates useful devops tasks.
 
 _devops-spt_ contains two types of tests, both contained under the top level `tests` directory:
 
-1.  **Unit tests**:  Development time, pre-publish tests.  Use `requirements_travis_ci.txt` to populate a clean venv.  Then run as follows from the top level directory:
+1.  **Unit tests**:  Development time, pre-publish tests. Run as follows from the top level directory in a clean venv:
 ```bash
+python -m pip install -r requirements_travis_ci.txt
 python -m pytest tests/local
 ```
 
