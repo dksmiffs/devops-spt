@@ -9,7 +9,7 @@ with open(path.join(HERE, 'README.md'), encoding='utf-8') as fh:
 
 setup(
     name='devops-spt',
-    version='0.3.0',
+    version='0.3.1',
     description='Devops support functions in a Python package',
     long_description=LONG_DESCRIPTION,
     long_description_content_type='text/markdown',

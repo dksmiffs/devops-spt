@@ -6,7 +6,7 @@ install:
   - python -m pip install -r requirements_travis_ci.txt
 
 script:
-  - python -m pytest --cov=devops_spt tests/local
+  - python -m pytest --cov=devops_spt tests
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
