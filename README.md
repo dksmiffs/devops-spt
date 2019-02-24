@@ -6,7 +6,7 @@
 
 A Python package that automates useful devops tasks.
 
-## Testing _devopts-spt_
+## Testing _devops-spt_
 
 _devops-spt_ can be tested from two different perspectives:
 
