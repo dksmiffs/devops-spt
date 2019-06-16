@@ -6,18 +6,7 @@
 
 A Python package that automates useful devops tasks.
 
-## Testing _devops-spt_
+## Publish, Test _devops-spt_
+This project follows the [import-ready][1] approach.
 
-_devops-spt_ can be tested from two different perspectives:
-
-1.  **Unit tests**:  Development time, pre-publish tests. Run as follows from the top level directory in a clean venv:
-```bash
-python -m pip install -r requirements_travis_ci.txt
-python -m pytest tests
-```
-
-2.  **Package tests**:  Post-publish tests, importing _devops-spt_ itself back from TestPyPI. Run as follows from inside the `tests` directory in a clean venv:
-```bash
-python -m pip install -r requirements_TestPyPI.txt
-python -m pytest
-```
+[1]: https://gitlab.com/dave.k.smith/import-ready
