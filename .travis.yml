@@ -1,12 +1,20 @@
 dist: xenial
-language: python
-python: 3.7
 
-install:
-  - python -m pip install -r requirements_travis_ci.txt
+matrix:
+  include:
+    - language: python
+      python: 3.7
+      install:
+        - python -m pip install -r requirements_travis_ci.txt
+      script:
+        - python -m pytest --cov=devops_spt tests
+      after_success:
+        - bash <(curl -s https://codecov.io/bash)
 
-script:
-  - python -m pytest --cov=devops_spt tests
-
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
+    - language: ruby
+      rvm:
+        - 2.2
+      before_script:
+        - gem install awesome_bot
+      script:
+        - awesome_bot README.md
