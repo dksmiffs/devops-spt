@@ -10,9 +10,7 @@ A Python package that automates useful devops tasks for software developers.
 
 ## Features
 *   Provide easy directory movement from Python scripts
-*   Expose current dependency versions
-*   Discover latest available dependency versions
-*   Automate version updates
+*   Automate dependency updates
 
 ## Usage
 TBD
