@@ -1,17 +1,16 @@
-"""Automate management of Gradle versions"""
+"""Automate management of Gradle dependency"""
 from re import MULTILINE, search
 from json import loads
 from platform import system
 # Codacy raises B404 low severity on next line. Suggestions welcome.
 from subprocess import run, PIPE
 from requests import get
-from .external_version import ExternalVersion
+from .external_dependency import ExternalDependency
 
-class GradleVersion(ExternalVersion):
-    """Concrete class for managing Gradle dependency versions"""
+class GradleDependency(ExternalDependency):
+    """Concrete class for managing Gradle dependency"""
 
-    @staticmethod
-    def existing():
+    def existing(self):
         """Return installed Gradle version"""
         # Codacy raises B603 low severity on next line. Suggestions welcome.
         done_proc = run( \
@@ -21,19 +20,17 @@ class GradleVersion(ExternalVersion):
         version = search('^Gradle (.+)$', output, MULTILINE)
         return version.group(1)
 
-    @staticmethod
-    def latest():
+    def latest(self):
         """Return latest Gradle version available"""
         req = get('https://services.gradle.org/versions/current')
         full_json = loads(req.content.decode())
         # json parsing guidance: https://stackoverflow.com/a/7771071
         return full_json['version']
 
-    @staticmethod
-    def update(verbose=False):
+    def update(self, verbose=False):
         """Update installed Gradle version to latest if necessary"""
-        old = GradleVersion.existing()
-        new = GradleVersion.latest()
+        old = self.existing()
+        new = self.latest()
         if verbose:
             print('existing Gradle ==> ' + old)
             print('latest Gradle   ==> ' + new)

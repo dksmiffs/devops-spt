@@ -3,13 +3,12 @@ from os.path import basename
 from urllib.parse import urlparse
 from re import MULTILINE, search
 from requests import get
-from .external_version import ExternalVersion
+from .external_dependency import ExternalDependency
 
-class KotlinVersion(ExternalVersion):
-    """Concrete class for managing Kotlin dependency versions"""
+class KotlinDependency(ExternalDependency):
+    """Concrete class for managing Kotlin dependency"""
 
-    @staticmethod
-    def existing():
+    def existing(self):
         """Return installed Kotlin version"""
         with open('build.gradle.kts') as inf:
             filedata = inf.read()
@@ -17,8 +16,7 @@ class KotlinVersion(ExternalVersion):
                              filedata, MULTILINE)
             return version.group(1)
 
-    @staticmethod
-    def latest():
+    def latest(self):
         """Return latest Kotlin version available"""
         # Use Requests library to track the redirect, guidance here:
         #    https://bit.ly/2JRvapH
@@ -29,11 +27,10 @@ class KotlinVersion(ExternalVersion):
         _, rhs = base.split("v", 1)
         return rhs
 
-    @staticmethod
-    def update(verbose=False):
+    def update(self, verbose=False):
         """Update installed Kotlin version to latest if necessary"""
-        old = KotlinVersion.existing()
-        new = KotlinVersion.latest()
+        old = self.existing()
+        new = self.latest()
         if verbose:
             print('existing Kotlin ==> ' + old)
             print('latest Kotlin   ==> ' + new)

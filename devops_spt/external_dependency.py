@@ -1,20 +1,23 @@
-"""External dependency version module"""
+"""External dependency management module"""
 from abc import ABC, abstractmethod
 
-class ExternalVersion(ABC):
-    """Define interface for managing external dependency versions"""
+class ExternalDependency(ABC):
+    """Define interface for managing external dependencies"""
 
-    @staticmethod
     @abstractmethod
-    def existing():
-        """Return installed version"""
+    def existing(self):
+        """
+        Return installed version
+        OR, set existing = None in subclass if only update is desired
+        """
 
-    @staticmethod
     @abstractmethod
-    def latest():
-        """Return latest version available"""
+    def latest(self):
+        """
+        Return latest version available
+        OR, set latest = None in subclass if only update is desired
+        """
 
-    @staticmethod
     @abstractmethod
-    def update(verbose=False):
+    def update(self, verbose=False):
         """Update installed version to latest if necessary"""

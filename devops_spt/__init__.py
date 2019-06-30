@@ -1,5 +1,5 @@
 """Specify which modules to export from the package."""
 from .directory import Directory
-from .external_version import ExternalVersion
-from .gradle_version import GradleVersion
-from .kotlin_version import KotlinVersion
+from .external_dependency import ExternalDependency
+from .gradle_dependency import GradleDependency
+from .kotlin_dependency import KotlinDependency
