@@ -2,3 +2,4 @@
 devops-spt
 pytest
 pytest-mock
+requests
