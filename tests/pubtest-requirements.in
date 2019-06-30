@@ -1,0 +1,5 @@
+# requirements for testing the TestPyPI published package
+--extra-index-url https://test.pypi.org/simple
+devops-spt
+pytest
+pytest-mock

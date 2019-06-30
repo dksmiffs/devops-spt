@@ -9,7 +9,7 @@
 A Python package that automates useful devops tasks for software developers.
 
 ## Features
-*   Provide easy directory movement for Python scripts
+*   Provide easy directory movement from Python scripts
 *   Expose current dependency versions
 *   Discover latest available dependency versions
 *   Automate version updates
@@ -27,7 +27,7 @@ TBD
 This project follows the [import-ready][1] approach for publishing and testing.
 
 ## License
-[MIT][2].
+[MIT][2]
 
 [1]: https://gitlab.com/dave.k.smith/import-ready
 [2]: https://gitlab.com/dave.k.smith/devops-spt/raw/master/LICENSE

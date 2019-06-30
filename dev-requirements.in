@@ -1,0 +1,5 @@
+# requirements for devops-spt developers
+pytest
+pytest-cov
+pytest-mock
+twine

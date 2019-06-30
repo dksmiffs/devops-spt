@@ -1,0 +1,4 @@
+# requirements for testing the PyPI published package
+devops-spt
+pytest
+pytest-mock
