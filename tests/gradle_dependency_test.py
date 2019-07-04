@@ -29,7 +29,7 @@ def test_GradleDependency_update_not_needed(mocker):
     dep = GradleDependency()
     ex = mocker.patch.object(dep, 'existing', return_value='6')
     la = mocker.patch.object(dep, 'latest', return_value='6')
-    dep.update(verbose=False)
+    dep.update(verbose=True)  # True & False calls needed for 100% coverage
     ex.assert_called_once()
     la.assert_called_once()
 
