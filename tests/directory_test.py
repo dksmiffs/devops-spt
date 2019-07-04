@@ -1,6 +1,7 @@
 """pytest unit tests for the Directory module"""
 from devops_spt import Directory
 
+
 def test_cd(mocker):
     """unit test Directory.cd"""
     getcwd_mock = mocker.patch('devops_spt.directory.getcwd')

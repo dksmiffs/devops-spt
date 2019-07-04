@@ -7,6 +7,7 @@ More comprehensive guidance:
 from contextlib import contextmanager
 from os import chdir, getcwd, path
 
+
 class Directory():
     """Provide file system directory operations"""
 
@@ -14,8 +15,8 @@ class Directory():
     @contextmanager
     def cd(newdir):
         """
-        In a context, change to newdir. Exiting that context, return to prevdir.
-        Behaves similarly to pushd/popd on Linux.
+        In a context, change to newdir. Exiting that context, return to
+        prevdir.  Behaves similarly to pushd/popd on Linux.
         """
         prevdir = getcwd()
         chdir(path.expanduser(newdir))

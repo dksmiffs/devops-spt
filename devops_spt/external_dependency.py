@@ -1,6 +1,7 @@
 """External dependency management module"""
 from abc import ABC, abstractmethod
 
+
 class ExternalDependency(ABC):
     """Define interface for managing external dependencies"""
 

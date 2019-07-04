@@ -5,6 +5,7 @@ from re import MULTILINE, search
 from requests import get
 from .external_dependency import ExternalDependency
 
+
 class KotlinDependency(ExternalDependency):
     """Concrete class for managing Kotlin dependency"""
 
@@ -12,7 +13,7 @@ class KotlinDependency(ExternalDependency):
         """Return installed Kotlin version"""
         with open('build.gradle.kts') as inf:
             filedata = inf.read()
-            version = search('^ *kotlin."jvm". version "(.+)"$', \
+            version = search('^ *kotlin."jvm". version "(.+)"$',
                              filedata, MULTILINE)
             return version.group(1)
 

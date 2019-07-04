@@ -7,14 +7,15 @@ from subprocess import run, PIPE
 from requests import get
 from .external_dependency import ExternalDependency
 
+
 class GradleDependency(ExternalDependency):
     """Concrete class for managing Gradle dependency"""
 
     def existing(self):
         """Return installed Gradle version"""
         # Codacy raises B603 low severity on next line. Suggestions welcome.
-        done_proc = run( \
-                     ['gradlew.bat' if system() == 'Windows' else 'gradlew', \
+        done_proc = run(
+                     ['gradlew.bat' if system() == 'Windows' else 'gradlew',
                       '-v'], shell=False, text=True, stdout=PIPE)
         output = done_proc.stdout
         version = search('^Gradle (.+)$', output, MULTILINE)
@@ -41,8 +42,9 @@ class GradleDependency(ExternalDependency):
             # Gradle update guidance:
             #    blog.nishtahir.com/2018/04/15/
             #       how-to-properly-update-the-gradle-wrapper
-            # Codacy raises B603 low severity on next line. Suggestions welcome.
-            run(args=['gradlew.bat' if system() == 'Windows' else 'gradlew', \
-                      'wrapper', '--gradle-version', new, \
-                      '--distribution-type', 'bin'], \
+            # Codacy raises B603 low severity on next line. Suggestions
+            #    welcome.
+            run(args=['gradlew.bat' if system() == 'Windows' else 'gradlew',
+                      'wrapper', '--gradle-version', new,
+                      '--distribution-type', 'bin'],
                 shell=False)

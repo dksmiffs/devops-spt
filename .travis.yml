@@ -8,6 +8,9 @@ matrix:
         - python -m pip install -r dev-requirements.txt
       script:
         - python -m pytest --cov=devops_spt tests
+        - python -m flake8 --count devops_spt/
+        - python -m flake8 --count setup.py
+        - python -m flake8 --count tests/*test.py
       after_success:
         - bash <(curl -s https://codecov.io/bash)
 
